@@ -23,7 +23,8 @@ app.listen(3000, () => {
 
 io.on('connection', (socket) => {
   socket.on('fireAll', (count) => {
-    socket.emit('toClient', ++count);
+    const next = ++count;
+    socket.broadcast.emit('toClient', next);
+    socket.emit('toClient', next);
   })
-  console.log('connection')
 });
