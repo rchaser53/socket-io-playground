@@ -15,7 +15,7 @@ const vue = new Vue({
     <button v-on:click="sendMessage">fire</button>
     <button v-on:click="toggleFlag">toggle</button>
     <div>{{count}}</div>
-    <div style="display:block; width: 100px; height: 100px; background-color: black;" v-if="flag"></div>
+    <div id="block" style="display:none; width: 100px; height: 100px; background-color: black;"></div>
   </div>`,
   methods: {
     sendMessage() {
@@ -23,19 +23,25 @@ const vue = new Vue({
     },
     toggleFlag() {
       Vue.set(this, 'flag', !this.flag)
+    },
+    showBlock() {
+      document.querySelector('#block').style.display = "block";
+    },
+    hideBlock() {
+      document.querySelector('#block').style.display = "none";
     }
   },
   watch: {
     flag(newValue) {
       const startTime = Date.now();
-      while (Date.now() < (startTime + 5000)) {}
-      setTimeout(() => {
-        console.log('setTimeout')
-      }, 0)
+      // while (Date.now() < (startTime + 5000)) {}
+      setTimeout(this.showBlock, 0)
       Vue.set(this, 'count', ++this.count)
+      this.hideBlock();
       console.log('flag')
     },
     count(newValue) {
+      this.hideBlock();
       console.log('count')
     }
   }
