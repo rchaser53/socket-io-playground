@@ -12,15 +12,15 @@ const vue = new Vue({
       flag: false
     }
   },
-  template: `<div id="outer" class="fade">
-    <div @transitionend="onTransitionEnd">
-      <button v-on:click="sendMessage">fire</button>
-      <button v-on:click="toggleFlag">toggle</button>
-      <button v-on:click="doTransition">transition</button>
-      <div>{{count}}</div>
-      <div id="block" style="display:none; width: 100px; height: 100px; background-color: black;"></div>
-    </div>
-  </div>`,
+  template: `<div id="outer" class="fade" @transitionend="onTransitionEnd">
+              <div>
+                <button v-on:click="sendMessage">fire</button>
+                <button v-on:click="toggleFlag">toggle</button>
+                <button v-on:click="doTransition">transition</button>
+                <div>{{count}}</div>
+                <div id="block" style="display:none; width: 100px; height: 100px; background-color: black;"></div>
+              </div>
+            </div>`,
   methods: {
     sendMessage() {
       socket.emit('fireAll', this.count)
@@ -36,7 +36,7 @@ const vue = new Vue({
     },
     doTransition() {
       const flag = this.transition;
-      document.querySelector('#outer').className = (flag) ? "in" : "fade";
+      document.querySelector('#outer').className = (flag) ? "fade in" : "fade";
       Vue.set(this, 'transition', !flag);
     },
     onTransitionEnd() {
