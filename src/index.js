@@ -8,14 +8,18 @@ const vue = new Vue({
   data: function() {
     return {
       count: 0,
+      transition: false,
       flag: false
     }
   },
-  template: `<div>
-    <button v-on:click="sendMessage">fire</button>
-    <button v-on:click="toggleFlag">toggle</button>
-    <div>{{count}}</div>
-    <div id="block" style="display:none; width: 100px; height: 100px; background-color: black;"></div>
+  template: `<div id="outer" class="fade">
+    <div @transitionend="onTransitionEnd">
+      <button v-on:click="sendMessage">fire</button>
+      <button v-on:click="toggleFlag">toggle</button>
+      <button v-on:click="doTransition">transition</button>
+      <div>{{count}}</div>
+      <div id="block" style="display:none; width: 100px; height: 100px; background-color: black;"></div>
+    </div>
   </div>`,
   methods: {
     sendMessage() {
@@ -29,6 +33,14 @@ const vue = new Vue({
     },
     hideBlock() {
       document.querySelector('#block').style.display = "none";
+    },
+    doTransition() {
+      const flag = this.transition;
+      document.querySelector('#outer').className = (flag) ? "in" : "fade";
+      Vue.set(this, 'transition', !flag);
+    },
+    onTransitionEnd() {
+      console.log(28)
     }
   },
   watch: {
