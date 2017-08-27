@@ -34,6 +34,7 @@ const ImitateModal = Vue.extend({
       Vue.set(this, 'transition', false);
     },
     initializeModalDialog: function() {
+      this.removeIn();
       Vue.set(this, 'transition', false);
     },
   },
