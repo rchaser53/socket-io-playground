@@ -43,12 +43,12 @@ const ImitateModal = Vue.extend({
       if (newValue === oldValue) return
       const self = this;
 
-      const startTime = Date.now();
-      while (Date.now() < (startTime + 5000)) {}
+      console.log('transition', this.id, this.shown, newValue);
 
       if (newValue) {
           if (this.shown) {
               setTimeout(function() {
+                console.log('setTimeout', self.id, self.shown);
                   self.addIn();
               }, 0)
           } else {
@@ -62,7 +62,7 @@ const ImitateModal = Vue.extend({
       }
     },
     shown(newValue, oldValue) {
-      console.log('shown', this.id);
+      console.log('shown', this.id, newValue);
       if(newValue) {
         this.initializeModalDialog()
       }

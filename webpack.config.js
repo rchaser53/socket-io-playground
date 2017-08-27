@@ -7,12 +7,13 @@ module.exports = {
   context: path.resolve(__dirname, './src'),
   devtool: 'inline-source-map',
   entry: {
-    "index": "./index.js"
+    "modal": "./index.js",
+    "sendMessage": "./sendMessage.js",
   },
   output: {
     path: path.resolve(__dirname, "lib"),
     publicPath: "/public/",
-    filename: "bundle.js"
+    filename: "[name].bundle.js"
   },
   resolve: {
     extensions: ['.html', '.js']
