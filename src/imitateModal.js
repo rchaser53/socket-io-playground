@@ -16,7 +16,7 @@ const ImitateModal = Vue.extend({
   mounted() {
     Vue.set(this, 'outer', document.querySelector(`#${this.id}`));
   },
-  template: `<div>
+  template: `<div style="line-height: 2;">
               <div v-bind:id="id" class="fade" @transitionend="onTransitionEnd">
                 <button v-on:click="open">open</button>
                 <button v-on:click="close">close</button>
@@ -30,7 +30,7 @@ const ImitateModal = Vue.extend({
       this.outer.className = "fade";
     },
     onTransitionEnd() {
-      console.log(123)
+      console.log('transitionEnd', this.id);
       Vue.set(this, 'transition', false);
     },
     initializeModalDialog: function() {
@@ -42,6 +42,9 @@ const ImitateModal = Vue.extend({
     transition: function (newValue, oldValue) {
       if (newValue === oldValue) return
       const self = this;
+
+      const startTime = Date.now();
+      while (Date.now() < (startTime + 5000)) {}
 
       if (newValue) {
           if (this.shown) {
@@ -59,7 +62,7 @@ const ImitateModal = Vue.extend({
       }
     },
     shown(newValue, oldValue) {
-      console.log(newValue, oldValue, 111)
+      console.log('shown', this.id);
       if(newValue) {
         this.initializeModalDialog()
       }

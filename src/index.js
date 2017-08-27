@@ -22,7 +22,7 @@ const vue = new Vue({
     "modal-b": ImitateModal
   },
   template: `<div>
-              <div>
+              <div style="line-height: 2;">
                 <button v-on:click="sendMessageA">send openA</button>
                 <button v-on:click="sendMessageB">send openB</button>
               </div>
