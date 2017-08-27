@@ -1,7 +1,4 @@
 import Vue from 'vue'
-import * as SocketIO from "socket.io-client"
-
-const socket = SocketIO('http://localhost:3000');
 
 const ImitateModal = Vue.extend({
   props: {
@@ -21,15 +18,11 @@ const ImitateModal = Vue.extend({
   },
   template: `<div>
               <div v-bind:id="id" class="fade" @transitionend="onTransitionEnd">
-                <button v-on:click="sendMessage">fire</button>
                 <button v-on:click="open">open</button>
                 <button v-on:click="close">close</button>
               </div>
             </div>`,
   methods: {
-    sendMessage() {
-      socket.emit('fireAll', 0)
-    },
     addIn() {
       this.outer.className = "fade in";
     },

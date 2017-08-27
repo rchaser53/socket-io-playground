@@ -22,12 +22,22 @@ const vue = new Vue({
     "modal-b": ImitateModal
   },
   template: `<div>
+              <div>
+                <button v-on:click="sendMessageA">send openA</button>
+                <button v-on:click="sendMessageB">send openB</button>
+              </div>
               <modal-a id="modalA" v-bind:shown="modalA.shown"
                       v-bind:open="openDialogA" v-bind:close="closeDialogA" />
               <modal-b id="modalB" v-bind:shown="modalB.shown"
                       v-bind:open="openDialogB" v-bind:close="closeDialogB" />
             </div>`,
   methods: {
+    sendMessageA() {
+      socket.emit('openA')
+    },
+    sendMessageB() {
+      socket.emit('openB')
+    },
     openDialogA() {
       Vue.set(this.modalA, 'shown', true);
     },
@@ -43,10 +53,17 @@ const vue = new Vue({
   },
 })
 
-socket.on('toClient', (data) => {
+socket.on('openA', (data) => {
+  Vue.set(vue.modalA, 'shown', false);
+  Vue.set(vue.modalB, 'shown', false);
   Vue.set(vue.modalA, 'shown', true);
-  Vue.set(vue.modalA, 'shown', true);
-})
+});
+
+socket.on('openB', (data) => {
+  Vue.set(vue.modalA, 'shown', false);
+  Vue.set(vue.modalB, 'shown', false);
+  Vue.set(vue.modalB, 'shown', true);
+});
 
 
   // watch: {

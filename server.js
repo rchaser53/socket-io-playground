@@ -16,12 +16,15 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  socket.on('fireAll', (count) => {
-    console.log('nya-n')
-    const next = ++count;
-    socket.broadcast.emit('toClient', next);
-    socket.emit('toClient', next);
-  })
+  socket.on('openA', (count) => {
+    socket.broadcast.emit('openA', 0);
+    socket.emit('openA', 0);
+  });
+
+  socket.on('openB', (count) => {
+    socket.broadcast.emit('openB', 0);
+    socket.emit('openB', 0);
+  });
 });
 
 server.listen(3000, () => {
